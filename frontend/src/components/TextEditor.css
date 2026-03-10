@@ -1,0 +1,12 @@
+/* Ghi đè giao diện Quill nếu muốn thêm style tùy chỉnh */
+
+.my-quill .ql-container {
+  border-radius: 0 0 8px 8px;
+  min-height: 100px;
+  background-color: #fff;
+}
+
+.my-quill .ql-editor {
+  font-size: 16px;
+  padding: 12px;
+}

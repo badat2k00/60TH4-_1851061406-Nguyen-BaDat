@@ -1,0 +1,20 @@
+# GET http://localhost:8080/api/get-product 
+
+# GET http://localhost:8080/api/get-categoryProduct
+
+# POST http://localhost:8080/api/product-details
+# Content-Type: application/json
+
+# {
+#   "productId": "665366af113e6b4c9a3128a5"
+#  }
+
+# POST  http://localhost:8080/oauth/
+
+
+# # {
+# #   "email":"dat0611@gmail.com",
+# #     "password":"123"
+# # }
+
+GET http://localhost:8080/oauth

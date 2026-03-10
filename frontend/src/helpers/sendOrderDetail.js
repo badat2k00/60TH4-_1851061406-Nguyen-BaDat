@@ -1,0 +1,3 @@
+const sendOrderDetail=(email,data)=>{
+    
+}
