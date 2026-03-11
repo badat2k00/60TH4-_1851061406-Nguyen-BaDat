@@ -23,6 +23,10 @@ app.use(cookieParser())
 app.use("/api", router)
 app.use('/oauth', authRouter)
 
-connectDB()
+// Connect to DB only if not in serverless environment or on first load
+if (process.env.NODE_ENV !== 'production' || !global.dbConnected) {
+    connectDB()
+    global.dbConnected = true
+}
 
 module.exports = serverless(app)
