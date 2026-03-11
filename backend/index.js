@@ -28,6 +28,10 @@ app.get("/test", (req, res) => {
 app.use("/api", router)
 app.use('/oauth', authRouter)
 
+app.get("/", (req, res) => {
+    res.json({ success: true, message: "API is running" })
+})
+
 // ✅ Local: chạy với port | Vercel: export serverless
 if (process.env.NODE_ENV !== 'production') {
     const PORT = process.env.PORT || 8080
