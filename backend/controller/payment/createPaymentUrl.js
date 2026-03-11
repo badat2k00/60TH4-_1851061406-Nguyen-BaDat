@@ -1,4 +1,6 @@
-let config = require("config");
+
+const dotenv = require("dotenv");
+dotenv.config();
 let moment = require("moment");
 let socket = require("node:net");
 //   // "vnp_Url":"https://sandbox.vnpayment.vn/paymentv2/vpcpay.html",
@@ -6,12 +8,12 @@ const orderModel = require("../../models/orderModel");
 async function createPaymentUrl(req, res, next) {
   try {
     let currentUser = req.userId;
-    let tmnCode = config.get("vnp_TmnCode");
-    let secretKey = config.get("vnp_HashSecret");
-    let vnpUrl = config.get("vnp_Url");
-    let returnUrl = config.get("vnp_ReturnUrl");
+    let tmnCode = process.env.VNP_TMNCODE;
+    let secretKey = process.env.VNP_HASHSECRET;
+    let vnpUrl = process.env.VNP_URL;
+    let returnUrl = process.env.VNP_RETURNURL;
 
-    let orderId= req.body.orderId
+    let orderId = req.body.orderId;
     let ipAddr =
       req.headers["x-forwarded-for"] ||
       req.connection.remoteAddress ||
@@ -25,23 +27,23 @@ async function createPaymentUrl(req, res, next) {
     // let orderId =  await orderModel.find({ userId: currentUser,isPaid:false}, 'orderId')
 
     // let amount = await orderModel.find({userId:currentUser,isPaid:false},'totalAmount');
-   
+
     // let order = await orderModel
     //   .findOne({ userId: currentUser, isPaid: false, paymentMethod: "VNPAY",status:'pending' })
     //   .exec();
-    let order =await orderModel.findById(orderId)
-      console.log(order)
+    let order = await orderModel.findById(orderId);
+    console.log(order);
     if (!order) {
       return res.status(404).send("No unpaid order found for this user");
     }
 
     // let orderId = moment(date).format("DDHHmmss");
-    let amount = order.totalAmount*100;
+    let amount = order.totalAmount * 100;
     console.log(order.totalAmount);
-    
+
     let orderInfo = orderId;
-    let orderType ="other";
-    let locale ="vn"
+    let orderType = "other";
+    let locale = "vn";
 
     let currCode = "VND";
     let vnp_Params = {};
@@ -71,7 +73,7 @@ async function createPaymentUrl(req, res, next) {
       for (key = 0; key < str.length; key++) {
         sorted[str[key]] = encodeURIComponent(obj[str[key]]).replace(
           /%20/g,
-          "+"
+          "+",
         );
       }
       return sorted;
@@ -87,19 +89,16 @@ async function createPaymentUrl(req, res, next) {
     vnp_Params["vnp_SecureHash"] = signed;
     vnpUrl += "?" + querystring.stringify(vnp_Params, { encode: false });
 
-    
     res.json({
       data: vnp_Params,
       env: vnpUrl,
-      success:true,
+      success: true,
       error: false,
-
     });
     // order.isPaid=true
 
     // await order.save();
-    
-    
+
     next();
   } catch (e) {
     res.json({
