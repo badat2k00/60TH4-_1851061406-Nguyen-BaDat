@@ -136,8 +136,8 @@ router.get("/get-offer-by-user",authToken,getOfferByUserId)
 // router.post("/publish-offer",publishOffer)
 router.post("/delete-offer",deleteOffer)
 router.post("/update-offer",editOffer)
-
-router.get("/r-mail",receiveEmail)
+// tắt email
+// router.get("/r-mail",receiveEmail)
 
 // review
 router.post("/create-review/:productId",authToken,createReview);
