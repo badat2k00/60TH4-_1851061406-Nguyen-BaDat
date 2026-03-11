@@ -22,6 +22,9 @@ app.use(cookieParser())
 
 connectDB()
 
+app.get("/test", (req, res) => {
+    res.json({ success: true })
+})
 app.use("/api", router)
 app.use('/oauth', authRouter)
 
