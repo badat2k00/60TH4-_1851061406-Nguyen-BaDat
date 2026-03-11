@@ -4,36 +4,25 @@ const cookieParser = require('cookie-parser')
 require('dotenv').config()
 const connectDB = require('./config/db')
 const router = require('./routes')
-const bodyParser = require('body-parser');
-const app = express();
+const bodyParser = require('body-parser')
+const serverless = require("serverless-http")
 
+const app = express()
 
- 
 app.use(cors({
-    origin : process.env.FRONTEND_URL,
-    credentials : true,
-    methods: 'GET,POST,PUT,DELETE,OPTIONS',
-    allowedHeaders: ['Content-Type', 'Authorization']
+    origin: process.env.FRONTEND_URL,
+    credentials: true
 }))
-let authRouter= require('./routes/oauth');
-// let requestRouter=require('./routes/request')
+
+let authRouter = require('./routes/oauth')
 
 app.use(express.json())
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
 
-app.use("/api",router)
-app.use('/oauth',authRouter)
-// app.use('/request',requestRouter)
-const PORT = 8080 || process.env.PORT
+app.use("/api", router)
+app.use('/oauth', authRouter)
 
+connectDB()
 
-
-connectDB().then(()=>{
-    app.listen(PORT,()=>{
-        console.log("connnect to DB")
-        console.log("Server is running "+ PORT)
-    })
-})
-
-
+module.exports = serverless(app)
