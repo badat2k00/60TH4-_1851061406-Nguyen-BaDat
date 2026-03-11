@@ -1,14 +1,14 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
+const connectToMongoDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGODB_URI, {
+      serverSelectionTimeoutMS: 5000
+    });
+    console.log("MongoDB connected");
+  } catch (error) {
+    console.error(error);
+  }
+};
 
-async function connectDB(){
-    try{
-        await mongoose.connect(process.env.MONGODB_URI)
-
-        // await mongoose.connect("mongodb+srv://dat:datbeo2000@cluster1.qps1vaz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1")
-    }catch(err){
-        console.log(err)
-    }
-}
-
-module.exports = connectDB
+module.exports = connectToMongoDB;
