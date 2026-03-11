@@ -40,7 +40,7 @@ async function sendPassword(req, res) {
       to: email, 
       subject: "Cấp mật khẩu",
       text: "Cấp lại Mật khẩu ", 
-      html: `Mật khẩu của bạn là ${user.originpassword}.Vui lòng lại đăng nhập tại <a href="http://localhost:3000/login">Đăng nhập</a>` , 
+      html: `Mật khẩu của bạn là ${user.originpassword}.Vui lòng lại đăng nhập tại <a href="${process.env.FRONTEND_URL}/login">Đăng nhập</a>` , 
     });
     return res.json({
         message:"Gửi email thành công",

@@ -10,10 +10,10 @@ const userModel = require("../models/userModel");
 
 
 router.post("/", async function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.header("Access-Control-Allow-Origin",  process.env.FRONTEND_URL);
   res.header("Referrer-Policy", "no-referrer-when-downgrade");
 
-  const redirectUrl = "http://localhost:8080/oauth";
+  const redirectUrl = `${process.env.REDIRECT_URI}/oauth`;
   const oauth2Client = new OAuth2Client(
     process.env.CLIENT_ID,
     process.env.CLIENT_SECRET,
@@ -50,9 +50,9 @@ router.get("/", async function (req, res, next) {
     // Extract the authorization code from query parameters
     const code = req.query.code;
     if(!code){
-      return res.redirect(`http://localhost:3000/login`);
+      return res.redirect(`${process.env.FRONTEND_URL}/login`);
     }
-    const redirectUrl = "http://localhost:8080/oauth";
+    const redirectUrl = `${process.env.REDIRECT_URI}/oauth`;
     const oauth2Client = new OAuth2Client(
       process.env.CLIENT_ID,
       process.env.CLIENT_SECRET,
@@ -104,7 +104,7 @@ router.get("/", async function (req, res, next) {
 
     res.cookie("accessToken", accessToken, accessTokenOption);
 
-    res.redirect(`http://localhost:3000`);
+    res.redirect(`${process.env.FRONTEND_URL}`);
 
   } catch (e) {
     

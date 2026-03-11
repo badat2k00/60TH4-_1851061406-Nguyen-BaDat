@@ -10,7 +10,7 @@ const serverless = require("serverless-http")
 const app = express()
 
 app.use(cors({
-    origin: process.env.FRONTEND_URL,
+    origin: process.env.FRONTEND_URL || "http://localhost:3000",
     credentials: true
 }))
 
@@ -20,13 +20,15 @@ app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
 
+connectDB()
+
 app.use("/api", router)
 app.use('/oauth', authRouter)
 
-// Connect to DB only if not in serverless environment or on first load
-if (process.env.NODE_ENV !== 'production' || !global.dbConnected) {
-    connectDB()
-    global.dbConnected = true
+// ✅ Local: chạy với port | Vercel: export serverless
+if (process.env.NODE_ENV !== 'production') {
+    const PORT = process.env.PORT || 8080
+    app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`))
 }
 
 module.exports = serverless(app)
