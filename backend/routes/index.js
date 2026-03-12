@@ -158,50 +158,50 @@ router.get('/caculatepermonth',authToken,caculatepermonth)
 router.get('/getTotalAmount',countTotalAmount)
 
 
-router.get('/provinces',async(req,res)=>{
-    try {
-        const response = await fetch('https://vapi.vnappmob.com/api/v2/province');
-        const data = await response.json();
-        res.json(data);
-      } catch (error) {
-        res.status(500).json({ error: 'Failed to fetch provinces' });
-      }
-})
-router.get('/districtbyprovince/:provinceId',async(req,res)=>{
-    const url = 'https://vapi.vnappmob.com/api/v2/province/district';
+// router.get('/provinces',async(req,res)=>{
+//     try {
+//         const response = await fetch('https://vapi.vnappmob.com/api/v2/province');
+//         const data = await response.json();
+//         res.json(data);
+//       } catch (error) {
+//         res.status(500).json({ error: 'Failed to fetch provinces' });
+//       }
+// })
+// router.get('/districtbyprovince/:provinceId',async(req,res)=>{
+//     const url = 'https://vapi.vnappmob.com/api/v2/province/district';
     
     
-    let provinceId=req.params.provinceId
-    let response=await fetch(`${url}/${provinceId}`)
-    const text = await response.json();
-    if (!text || !text.results) {
-        return res.status(500).json({ error: 'Invalid response from third-party API' });
-    }
-    let districts = [];
-    text.results.forEach((district) => {
-      const { district_id, district_name } = district;
-      let payload = { district_id, district_name };
+//     let provinceId=req.params.provinceId
+//     let response=await fetch(`${url}/${provinceId}`)
+//     const text = await response.json();
+//     if (!text || !text.results) {
+//         return res.status(500).json({ error: 'Invalid response from third-party API' });
+//     }
+//     let districts = [];
+//     text.results.forEach((district) => {
+//       const { district_id, district_name } = district;
+//       let payload = { district_id, district_name };
 
-      districts.push(payload);
-    });
-    res.json({data:districts})
-})
-router.get('/wardbydistrict/:districtId',async (req,res) => {
-    const url = 'https://vapi.vnappmob.com/api/v2/province/ward';
-    let districtId=req.params.districtId
-    let response=await fetch(`${url}/${districtId}`)
-    const text = await response.json();
-    if (!text || !text.results) {
-        return res.status(500).json({ error: 'Invalid response from third-party API' });
-    }
-    let wards = [];
-    text.results.forEach((ward) => {
-      const { ward_id, ward_name } = ward;
-      let payload = { ward_id, ward_name };
-      // console.log(payload);
-      wards.push(payload);
-    });
-    res.json({data:wards})
-})
+//       districts.push(payload);
+//     });
+//     res.json({data:districts})
+// })
+// router.get('/wardbydistrict/:districtId',async (req,res) => {
+//     const url = 'https://vapi.vnappmob.com/api/v2/province/ward';
+//     let districtId=req.params.districtId
+//     let response=await fetch(`${url}/${districtId}`)
+//     const text = await response.json();
+//     if (!text || !text.results) {
+//         return res.status(500).json({ error: 'Invalid response from third-party API' });
+//     }
+//     let wards = [];
+//     text.results.forEach((ward) => {
+//       const { ward_id, ward_name } = ward;
+//       let payload = { ward_id, ward_name };
+//       // console.log(payload);
+//       wards.push(payload);
+//     });
+//     res.json({data:wards})
+// })
 
 module.exports = router
