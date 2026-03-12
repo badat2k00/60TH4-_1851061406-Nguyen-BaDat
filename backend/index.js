@@ -6,7 +6,7 @@ const connectDB = require('./config/db')
 const router = require('./routes')
 const bodyParser = require('body-parser')
 const serverless = require("serverless-http")
-
+const getProductController = require('../controller/product/getProduct')
 const app = express()
 
 app.use(cors({
@@ -25,9 +25,9 @@ connectDB()
 app.get("/test", (req, res) => {
     res.json({ success: true })
 })
-app.use("/api", router)
+// app.use("/api", router)
 // app.use('/oauth', authRouter)
-
+app.get("/get-product",getProductController)
 app.get("/", (req, res) => {
     res.json({ success: true, message: "API is running" })
 })
