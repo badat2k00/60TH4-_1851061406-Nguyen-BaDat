@@ -26,7 +26,7 @@ app.get("/test", (req, res) => {
     res.json({ success: true })
 })
 app.use("/api", router)
-app.use('/oauth', authRouter)
+// app.use('/oauth', authRouter)
 
 app.get("/", (req, res) => {
     res.json({ success: true, message: "API is running" })
