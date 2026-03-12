@@ -10,7 +10,7 @@ const getProductController = require('./controller/product/getProduct')
 const app = express()
 
 app.use(cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:3000",
+    origin: process.env.FRONTEND_URL || "*",
     credentials: true
 }))
 
@@ -28,8 +28,8 @@ app.use(async (req, res, next) => {
 app.get("/test", (req, res) => {
     res.json({ success: true })
 })
-// app.use("/api", router)
-// app.use('/oauth', authRouter)
+app.use("/api", router)
+app.use('/oauth', authRouter)
 app.get("/get-product",getProductController)
 app.get("/", (req, res) => {
     res.json({ success: true, message: "API is running" })
