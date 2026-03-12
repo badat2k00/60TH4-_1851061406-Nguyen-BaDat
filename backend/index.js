@@ -41,10 +41,10 @@
 // module.exports = serverless(app)
 
 
-const serverless = require("serverless-http")
+
 const express = require("express")
 const app = express()
 
 app.get("/", (req, res) => res.json({ ok: true }))
 
-module.exports = serverless(app)
+module.exports = app
