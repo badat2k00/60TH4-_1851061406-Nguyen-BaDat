@@ -1,4 +1,4 @@
-const backendDomain = "http://localhost:8080"||process.env.REDIRECT_URI;
+const backendDomain = process.env.REACT_APP_BACKEND_URL
 
 const SummaryApi = {
   signUP: {
