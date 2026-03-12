@@ -20,7 +20,10 @@ app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
 
-connectDB()
+app.use(async (req, res, next) => {
+    await connectDB()
+    next()
+})
 
 app.get("/test", (req, res) => {
     res.json({ success: true })
