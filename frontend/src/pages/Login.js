@@ -72,7 +72,8 @@ const Login = () => {
   };
  
   const handleLogin = async () => {
-    const res = await fetch(`${process.env.REDIRECT_URI}/oauth`, { method: "post" });
+	let url=`${process.env.REACT_APP_REDIRECT_URI}/oauth`;
+    const res = await fetch(url, { method: "post" });
     const data = await res.json();
     nav(data.url);
     navigate("/");
