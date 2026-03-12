@@ -6,7 +6,7 @@ const connectDB = require('./config/db')
 const router = require('./routes')
 const bodyParser = require('body-parser')
 const serverless = require("serverless-http")
-const getProductController = require('../controller/product/getProduct')
+const getProductController = require('./controller/product/getProduct')
 const app = express()
 
 app.use(cors({
